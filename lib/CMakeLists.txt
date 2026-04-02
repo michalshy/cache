@@ -1,4 +1,8 @@
 # lib/CMakeLists.txt
+include_directories(
+    public
+)
+
 add_library(cache
     cache.cpp
 )
