@@ -5,38 +5,37 @@
 
 namespace cash {
 
-template <typename K, typename V,
-          template <typename, typename> typename S = LRU>
-  requires EvictStrategy<S<K, V>>
+template <typename K, typename V, typename S = LRU>
+  requires EvictStrategy<S>
 class Cache {
 private:
   size_t _cap;
-  std::unordered_map<K, std::unique_ptr<Entry<K, V>>> cache;
-  S<K, V> _strategy;
+  std::unordered_map<K, std::unique_ptr<Entry<K, V>>> _cache;
+  S _strategy;
 
 public:
   Cache(size_t cap) : _cap(cap) {}
 
   std::optional<V> get(K key) {
-    if (cache.contains(key)) {
-      _strategy.onGet(cache[key].get());
-      return cache[key]->val();
+    if (_cache.contains(key)) {
+      _strategy.onGet(_cache[key].get());
+      return _cache[key]->val();
     }
     return std::nullopt;
   }
 
   void put(K key, V val) {
-    if (cache.contains(key)) {
-      cache[key]->set_val(val);
-      _strategy.onGet(cache[key].get());
+    if (_cache.contains(key)) {
+      _cache[key]->set_val(val);
+      _strategy.onGet(_cache[key].get());
     } else {
-      if (cache.size() >= _cap) {
+      if (_cache.size() >= _cap) {
         evict();
       }
       std::unique_ptr<Entry<K, V>> entry =
           std::make_unique<Entry<K, V>>(key, val);
-      cache[key] = std::move(entry);
-      _strategy.onPut(cache[key].get());
+      _cache[key] = std::move(entry);
+      _strategy.onPut(_cache[key].get());
     }
   }
 
@@ -47,7 +46,7 @@ private:
     EntryBase* victim = _strategy.getVictim();
     Entry<K, V>* entry = static_cast<Entry<K, V>*>(victim);
     K key = entry->key();
-    cache.erase(key);
+    _cache.erase(key);
   }
 };
 
