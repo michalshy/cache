@@ -14,6 +14,8 @@ public:
   Entry(KEY k, VAL v) : _key(k), _val(v) {}
   const KEY& key() const { return _key; }
   const VAL& val() const { return _val; }
+
+  void set_val(VAL v) { _val = v; }
 };
 
-}
+} // namespace cash
