@@ -1,7 +1,7 @@
-#ifndef __EVICT__HPP
-#define __EVICT__HPP
+#ifndef CASH_EVICT_HPP
+#define CASH_EVICT_HPP
 
-#include "concepts.hpp"
+#include "entry.hpp"
 #include <list>
 #include <unordered_map>
 

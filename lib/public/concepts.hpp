@@ -1,5 +1,5 @@
-#ifndef __CONCEPTS__HPP
-#define __CONCEPTS__HPP
+#ifndef CASH_CONCEPTS_HPP
+#define CASH_CONCEPTS_HPP
 
 #include "entry.hpp"
 #include <concepts>

@@ -1,5 +1,5 @@
-#ifndef __CACHE__HPP
-#define __CACHE__HPP
+#ifndef CASH_CACHE_HPP
+#define CASH_CACHE_HPP
 
 #include "public/evict.hpp"
 #include "public/lock.hpp"
@@ -22,17 +22,16 @@ public:
   Cache(size_t cap) : _cap(cap) {}
 
   std::optional<V> get(K key) {
-    _lock.lockRead();
+    WriteLock<L> guard{_lock};
     if (_cache.contains(key)) {
       _strategy.onGet(_cache[key].get());
       return _cache[key]->val();
     }
-    _lock.unlockRead();
     return std::nullopt;
   }
 
   void put(K key, V val) {
-    _lock.lockWrite();
+    WriteLock<L> guard{_lock};
     if (_cache.contains(key)) {
       _cache[key]->set_val(val);
       _strategy.onGet(_cache[key].get());
@@ -45,7 +44,6 @@ public:
       _cache[key] = std::move(entry);
       _strategy.onPut(_cache[key].get());
     }
-    _lock.unlockWrite();
   }
 
   ~Cache() = default;

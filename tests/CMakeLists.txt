@@ -10,8 +10,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
+target_compile_options(tests PRIVATE -fsanitize=thread)
+target_link_options(tests PRIVATE -fsanitize=thread)
+
 target_link_libraries(tests PRIVATE cache Catch2::Catch2WithMain)
 
 include(CTest)
 include(${Catch2_SOURCE_DIR}/extras/Catch.cmake)
-catch_discover_tests(tests)
+catch_discover_tests(tests
+    DISCOVERY_MODE PRE_TEST
+)

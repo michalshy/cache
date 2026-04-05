@@ -1,5 +1,5 @@
-#ifndef __ENTRY__HPP
-#define __ENTRY__HPP
+#ifndef CASH_ENTRY_HPP
+#define CASH_ENTRY_HPP
 
 namespace cash {
 

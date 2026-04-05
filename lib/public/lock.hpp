@@ -1,5 +1,5 @@
-#ifndef __LOCK__HPP
-#define __LOCK__HPP
+#ifndef CASH_LOCK_HPP
+#define CASH_LOCK_HPP
 
 #include "concepts.hpp"
 #include <shared_mutex>
