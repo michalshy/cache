@@ -10,7 +10,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-target_compile_options(cache PRIVATE -Wall -Wextra -Wpedantic)
 target_link_libraries(tests PRIVATE cache Catch2::Catch2WithMain)
 
 include(CTest)

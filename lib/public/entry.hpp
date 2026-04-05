@@ -1,3 +1,6 @@
+#ifndef __ENTRY__HPP
+#define __ENTRY__HPP
+
 namespace cash {
 
 class EntryBase {
@@ -19,3 +22,5 @@ public:
 };
 
 } // namespace cash
+
+#endif

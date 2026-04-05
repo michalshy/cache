@@ -3,8 +3,6 @@ include_directories(
     public
 )
 
-add_library(cache
-    cache.cpp
-)
+add_library(cache INTERFACE)
 
-target_include_directories(cache PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(cache INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
